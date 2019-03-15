@@ -1,0 +1,29 @@
+﻿<NavigationWindow x:Class="CM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="860" MinWidth="600" Width="1500">
+    <NavigationWindow.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Background="AliceBlue">
+                <Border Height="35" Padding="5" Background="#4E87D4">
+                    <Label Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">MENÚ</Label>
+                </Border>
+                <Border Height="35" MouseUp="lbiCas_MouseUp_1">
+                    <Label Content="CAS" Style="{StaticResource menuItemLabelStyle}"/>
+                </Border>
+                <Border Height="35" MouseUp="lbiProject_MouseUp_1">
+                    <Label Content="SISTEMAS" Style="{StaticResource menuItemLabelStyle}"/>
+                </Border>
+            </StackPanel>
+            
+            <Frame Grid.Column="0" Grid.Row="1" x:Name="mainFrame" Source="/CM;component/Pages/Cas/Cases.xaml" />
+        </Grid>
+    </NavigationWindow.Content>
+</NavigationWindow>
