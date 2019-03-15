@@ -1,0 +1,149 @@
+﻿<Window x:Class="CM.Pages.Cas.AddUpdCas"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddUpdCas" Height="400" Width="600" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" SizeToContent="Height" KeyDown="Window_KeyDown_1">
+    <Grid Margin="5,10,5,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource headerBorderStyle}">
+            <TextBlock Text="Crear CAS" x:Name="tbTitle" Style="{StaticResource headerTextStyle}"/>
+        </Border>
+        
+        <WrapPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Margin="0,0,5,0">
+                <Label Content="CAS"/>
+                <TextBox Width="100" x:Name="txtCasNumber" Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Margin="5,0">
+                <Label Content="Sistema"/>
+                <ComboBox IsEditable="True" Width="200" TextOptions.TextFormattingMode="Display" x:Name="ddlProject" DisplayMemberPath="Name" SelectedValuePath="ProjectID" SelectedValue="{Binding ProjectID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Margin="5,0">
+                <Label Content="Fecha Inicio"/>
+                <DatePicker x:Name="dtpStartDate" SelectedDate="{Binding StartingDate, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Margin="5,0,0,0">
+                <Label Content="Fecha Compromiso"/>
+                <DatePicker x:Name="dtpEndDate" SelectedDate="{Binding EndingDate, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </WrapPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical">
+            <Label Content="Descripción"/>
+            <TextBox x:Name="txtDescription" AcceptsReturn="True" TextWrapping="Wrap" MinLines="2" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="0" Grid.Row="3" Margin="0,10,0,0">
+            <Grid>
+                <Label Content="Archivos nuevos de publicación (App)"/>
+                <Menu HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <MenuItem Header="...">
+                        <MenuItem Header="Detectar cambios" x:Name="miDetectAppChanges" Click="miDetectAppChanges_Click_1"/>
+                        <MenuItem Header="Aplicar a desarrollo" x:Name="miApplyAppChanges" Click="miApplyAppChanges_Click_1"/>
+                        <MenuItem Header="Revertir en desarrollo" x:Name="miRevertAppChanges" Click="miRevertAppChanges_Click_1"/>
+                    </MenuItem>
+                </Menu>
+            </Grid>
+            <DataGrid AutoGenerateColumns="False" x:Name="dgPublishAppFiles" VerticalAlignment="Top" HorizontalAlignment="Center" HeadersVisibility="Column" ColumnHeaderStyle="{StaticResource columnHeaderStyle}" MaxHeight="200">
+                <DataGrid.Resources>
+                    <DataTemplate x:Key="fileNameTmpl">
+                        <Label Content="{Binding RelativePath}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="lastPublishedFileTmpl">
+                        <Button CommandParameter="{Binding CasFileID}" x:Name="btnLastPubAppFile" Click="btnLastPubAppFile_Click_1" ToolTip="Descargar último archivo publicado" Style="{DynamicResource accentButtonStyle}" Margin="2,1" IsEnabled="{Binding ModifiedFile}" HorizontalAlignment="Center">
+                            <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        </Button>
+                    </DataTemplate>
+                    <DataTemplate x:Key="backupFileTmpl">
+                        <Button CommandParameter="{Binding CasFileID}" x:Name="btnOriginAppFile" Click="btnOriginAppFile_Click_1" ToolTip="Descargar archivo de respaldo" Style="{DynamicResource accentButtonStyle}" Margin="2,1" IsEnabled="{Binding HasOriginal}" HorizontalAlignment="Center">
+                            <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        </Button>
+                    </DataTemplate>
+                    <DataTemplate x:Key="deleteTmpl">
+                        <Button CommandParameter="{Binding CasFileID}" x:Name="btnDeleteAppCasFile" Click="btnDeleteAppCasFile_Click_1" ToolTip="Eliminar archivo" Style="{DynamicResource dangerButtonStyle}" Margin="2,1">
+                            <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        </Button>
+                    </DataTemplate>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Archivo" Width="*" CellTemplate="{StaticResource fileNameTmpl}"/>
+                    <DataGridTemplateColumn Header="Último archivo publicado" CellTemplate="{StaticResource lastPublishedFileTmpl}"/>
+                    <DataGridTemplateColumn Header="Archivo de respaldo" CellTemplate="{StaticResource backupFileTmpl}"/>
+                    <DataGridTemplateColumn CellTemplate="{StaticResource deleteTmpl}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="4" Margin="0,10,0,0">
+            <Grid>
+                <Label Content="Archivos nuevos de publicación (Front)"/>
+                <Menu HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <MenuItem Header="...">
+                        <MenuItem Header="Detectar cambios" Click="miDetectFrontChanges_Click_1"/>
+                        <MenuItem Header="Aplicar a desarrollo" x:Name="miApplyFrontChanges" Click="miApplyFrontChanges_Click_1"/>
+                        <MenuItem Header="Revertir en desarrollo" x:Name="miRevertFrontChanges" Click="miRevertFrontChanges_Click_1"/>
+                    </MenuItem>
+                </Menu>
+            </Grid>
+            <DataGrid AutoGenerateColumns="False" x:Name="dgPublishFrontFiles" VerticalAlignment="Top" HorizontalAlignment="Center" HeadersVisibility="Column" ColumnHeaderStyle="{StaticResource columnHeaderStyle}" MaxHeight="200">
+                <DataGrid.Resources>
+                    <DataTemplate x:Key="fileNameTmpl">
+                        <Label Content="{Binding RelativePath}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="lastPublishedFileTmpl">
+                        <Button CommandParameter="{Binding CasFileID}" x:Name="btnLastPubFrontFile" Click="btnLastPubFrontFile_Click_1" ToolTip="Descargar último archivo publicado" Style="{DynamicResource accentButtonStyle}" Margin="2,1" IsEnabled="{Binding HasModified}" HorizontalAlignment="Center">
+                            <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        </Button>
+                    </DataTemplate>
+                    <DataTemplate x:Key="backupFileTmpl">
+                        <Button CommandParameter="{Binding CasFileID}" x:Name="btnOriginFrontFile" Click="btnOriginFrontFile_Click_1" ToolTip="Descargar archivo de respaldo" Style="{DynamicResource accentButtonStyle}" Margin="2,1" IsEnabled="{Binding HasOriginal}" HorizontalAlignment="Center">
+                            <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        </Button>
+                    </DataTemplate>
+                    <DataTemplate x:Key="deleteTmpl">
+                        <Button CommandParameter="{Binding CasFileID}" x:Name="btnDeleteFrontCasFile" Click="btnDeleteFrontCasFile_Click_1" ToolTip="Eliminar archivo" Style="{DynamicResource dangerButtonStyle}" Margin="2,1">
+                            <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        </Button>
+                    </DataTemplate>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Archivo" Width="*" CellTemplate="{StaticResource fileNameTmpl}"/>
+                    <DataGridTemplateColumn Header="Último archivo publicado" CellTemplate="{StaticResource lastPublishedFileTmpl}"/>
+                    <DataGridTemplateColumn Header="Archivo de respaldo" CellTemplate="{StaticResource backupFileTmpl}"/>
+                    <DataGridTemplateColumn CellTemplate="{StaticResource deleteTmpl}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10">
+            <Button CommandParameter="{Binding CasFileID}" Style="{DynamicResource dangerButtonStyle}" Margin="2,1" HorizontalAlignment="Right" IsCancel="True">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                    <TextBlock Text="Cancelar" Style="{DynamicResource iconButtonTextStyle}"/>
+                </StackPanel>
+            </Button>
+            
+            <Button CommandParameter="{Binding CasFileID}" x:Name="btnSave" Click="btnSave_Click_1" Style="{DynamicResource primaryButtonStyle}" Margin="2,1" HorizontalAlignment="Right" IsDefault="True">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                    <TextBlock Text="Guardar" Style="{DynamicResource iconButtonTextStyle}"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

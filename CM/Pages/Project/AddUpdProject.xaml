@@ -1,0 +1,142 @@
+﻿<Window x:Class="CM.Pages.Project.AddUpdProject"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddUpdProject" Height="Auto" Width="400" WindowStyle="ToolWindow" SizeToContent="Height" WindowStartupLocation="CenterScreen" ResizeMode="CanResize">
+
+    <StackPanel Orientation="Vertical" Margin="5,10,5,0">
+        <Border Style="{StaticResource headerBorderStyle}">
+            <TextBlock Text="Crear Sistema" x:Name="tbTitle" Style="{StaticResource headerTextStyle}"/>
+        </Border>
+        
+        <DockPanel LastChildFill="True" Background="#FFE0E7FF" Margin="0,4">
+            <TextBlock Text="Sistema" Margin="5" DockPanel.Dock="Top" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            <TextBox x:Name="txtProjectName" Text="{Binding Name}"/>
+        </DockPanel>
+
+        <DockPanel LastChildFill="True" Background="#FFE0E7FF" Margin="0,4">
+            <Grid DockPanel.Dock="Top">
+                <TextBlock Text="Url Desarrollo" Margin="5" VerticalAlignment="Center" TextWrapping="Wrap"/>
+
+                <Button Click="OpenDevUrl" ToolTip="Abrir en el navegador" DockPanel.Dock="Right" Style="{DynamicResource noBackgroundButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="" Style="{DynamicResource faIconStyle}" Padding="1" Foreground="Black"/>
+                </Button>
+            </Grid>
+
+            <TextBox x:Name="txtDevUrl" Text="{Binding DevelopmentUrl}"/>
+        </DockPanel>
+        
+        <DockPanel LastChildFill="True" Background="#FFE0E7FF" Margin="0,4">
+            <TextBlock Text="Cadena de Conexión a BD" Margin="5" DockPanel.Dock="Top" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            <TextBox x:Name="txtDbConnString" MinLines="2" TextWrapping="Wrap" Text="{Binding DBConnectionString}"/>
+        </DockPanel>
+
+        <DockPanel LastChildFill="True" Background="#FFE0E7FF" Margin="0,4">
+            <Grid DockPanel.Dock="Top">
+                <TextBlock Text="Ruta de publicación local (App)" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Button Click="OpenLocalAppPublishPath" ToolTip="Abrir en el explorador" Style="{DynamicResource noBackgroundButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="" Style="{DynamicResource faIconStyle}" Padding="1" Foreground="Black"/>
+                </Button>
+            </Grid>
+
+            <DockPanel LastChildFill="True">
+                <Button Click="btnSelectLocalAppPublishPath_Click_1" ToolTip="Seleccionar carpeta" Style="{DynamicResource accentButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        <TextBlock Text="Seleccionar" Style="{DynamicResource iconButtonTextStyle}"/>
+                    </StackPanel>
+                </Button>
+                <TextBox x:Name="txtLocalAppPublishPath" Text="{Binding LocalAppPublishPath}"/>
+            </DockPanel>
+        </DockPanel>
+
+        <DockPanel LastChildFill="True" Background="#FFE0E7FF" Margin="0,4">
+            <Grid DockPanel.Dock="Top">
+                <TextBlock Text="Ruta de publicación local (Front)" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Button Click="OpenLocalFrontPublishPath" ToolTip="Abrir en el explorador" Style="{DynamicResource noBackgroundButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="" Style="{DynamicResource faIconStyle}" Padding="1" Foreground="Black"/>
+                </Button>
+            </Grid>
+            
+            <DockPanel LastChildFill="True">
+                <Button Click="btnSelectLocalFrontPublishPath_Click_1" ToolTip="Seleccionar carpeta" Style="{DynamicResource accentButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        <TextBlock Text="Seleccionar" Style="{DynamicResource iconButtonTextStyle}"/>
+                    </StackPanel>
+                </Button>
+                <TextBox x:Name="txtLocalFrontPublishPath" Text="{Binding LocalFrontPublishPath}"/>
+            </DockPanel>
+        </DockPanel>
+
+        <DockPanel LastChildFill="True" Background="#FFE0E7FF" Margin="0,4">
+            <Grid DockPanel.Dock="Top">
+                <TextBlock Text="Ruta de publicación desarrollo (App)" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Button Click="OpenDevAppPublishPath" ToolTip="Abrir en el explorador" Style="{DynamicResource noBackgroundButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="" Style="{DynamicResource faIconStyle}" Padding="1" Foreground="Black"/>
+                </Button>
+            </Grid>
+            
+            <DockPanel LastChildFill="True">
+                <Button Click="btnSelectDevAppPublishPath_Click_1" ToolTip="Seleccionar carpeta" Style="{DynamicResource accentButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        <TextBlock Text="Seleccionar" Style="{DynamicResource iconButtonTextStyle}"/>
+                    </StackPanel>
+                </Button>
+                <TextBox x:Name="txtDevAppPublishPath" Text="{Binding DevelopmentAppPublishPath}"/>
+            </DockPanel>
+        </DockPanel>
+
+        <DockPanel LastChildFill="True" Background="#FFE0E7FF" Margin="0,4">
+            <Grid DockPanel.Dock="Top">
+                <TextBlock Text="Ruta de publicación desarrollo (Front)" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Button Click="OpenDevFrontPublishPath" ToolTip="Abrir en el explorador" Style="{DynamicResource noBackgroundButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="" Style="{DynamicResource faIconStyle}" Padding="1" Foreground="Black"/>
+                </Button>
+            </Grid>
+
+            <DockPanel LastChildFill="True">
+                <Button Click="btnSelectDevFrontPublishPath_Click_1" ToolTip="Seleccionar carpeta" Style="{DynamicResource accentButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        <TextBlock Text="Seleccionar" Style="{DynamicResource iconButtonTextStyle}"/>
+                    </StackPanel>
+                </Button>
+                <TextBox x:Name="txtDevFrontPublishPath" Text="{Binding DevelopmentFrontPublishPath}"/>
+            </DockPanel>
+        </DockPanel>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <DockPanel Grid.Column="0" LastChildFill="True" Background="#FFE0E7FF" Margin="0,4,1,4">
+                <TextBlock Text="Usuario" Margin="5" DockPanel.Dock="Top" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                <TextBox x:Name="txtDevPathUser" Text="{Binding DevPublishPathUser}"/>
+            </DockPanel>
+            
+            <DockPanel Grid.Column="1" LastChildFill="True" Background="#FFE0E7FF" Margin="1,4,0,4">
+                <TextBlock Text="Contraseña" Margin="5" DockPanel.Dock="Top" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                <TextBox x:Name="txtDevPathPassword" Text="{Binding DevPublishPathPassword}"/>
+            </DockPanel>
+        </Grid>
+
+        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10">
+            <Button CommandParameter="{Binding CasFileID}" Style="{DynamicResource dangerButtonStyle}" Margin="2,1" HorizontalAlignment="Right" IsCancel="True">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                    <TextBlock Text="Cancelar" Style="{DynamicResource iconButtonTextStyle}"/>
+                </StackPanel>
+            </Button>
+
+            <Button CommandParameter="{Binding CasFileID}" Click="btnAddUpdProject_Click_1" Style="{DynamicResource primaryButtonStyle}" Margin="2,1" HorizontalAlignment="Right" IsDefault="True">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                    <TextBlock Text="Guardar" Style="{DynamicResource iconButtonTextStyle}"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

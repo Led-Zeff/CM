@@ -1,0 +1,82 @@
+﻿<Page x:Class="CM.Pages.Project.Projects"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="400"
+	Title="Projects">
+
+    <Grid MaxWidth="900" Margin="5,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource headerBorderStyle}">
+            <TextBlock Text="Sistemas" Style="{StaticResource headerTextStyle}"/>
+        </Border>
+
+        <Grid Grid.Column="0" Grid.Row="1" Margin="0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Column="0" Grid.Row="0" LastChildFill="True" Background="#FFE0E7FF" x:Name="stack">
+                <TextBlock Text="" DockPanel.Dock="Right" Style="{DynamicResource faIconStyle}" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Padding="5,0"/>
+                <TextBox x:Name="txtSearch" Height="25" Width="200" Padding="2" Text="{Binding Path=Name}" TextChanged="txtSearch_TextChanged_1"/>
+            </DockPanel>
+            
+            <Button Grid.Column="2" Grid.Row="0" x:Name="btnAddCas" Click="btnNewProject_Click_1" Style="{DynamicResource accentButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                    <TextBlock Text="Nuevo" Style="{DynamicResource iconButtonTextStyle}"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <DataGrid Grid.Column="0" Grid.Row="2" x:Name="dgProjects" SelectionUnit="Cell" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Center" HeadersVisibility="Column" ColumnHeaderStyle="{StaticResource columnHeaderStyle}">
+            <DataGrid.Resources>
+                <DataTemplate x:Key="projectTemplate">
+                    <Label Content="{Binding Name}"/>
+                </DataTemplate>
+                <DataTemplate x:Key="devUrlTemplate">
+                    <Label Content="{Binding DevelopmentUrl}"/>
+                </DataTemplate>
+                <DataTemplate x:Key="devAppPathTemplate">
+                    <Label Content="{Binding DevelopmentAppPublishPath}"/>
+                </DataTemplate>
+                <DataTemplate x:Key="devFrontPathTemplate">
+                    <Label Content="{Binding DevelopmentFrontPublishPath}"/>
+                </DataTemplate>
+                <DataTemplate x:Key="actionTemplate">
+                    <StackPanel Orientation="Horizontal">
+                        <Button CommandParameter="{Binding ProjectID}" Click="btnEditProject_Click_1" Style="{DynamicResource primaryButtonStyle}" ToolTip="Abrir Sistema" Margin="2,1">
+                            <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        </Button>
+                        <Button CommandParameter="{Binding ProjectID}" Click="btnDeleteProject_Click_1" ToolTip="Eliminar Sistema" Style="{DynamicResource dangerButtonStyle}" Margin="2,1">
+                            <TextBlock Text="" Style="{DynamicResource faIconStyle}"/>
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </DataGrid.Resources>
+            
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Sistema" Width="20*" CellTemplate="{StaticResource projectTemplate}"/>
+                <DataGridTemplateColumn Header="URL Desarrollo" Width="40*" CellTemplate="{StaticResource devUrlTemplate}"/>
+                <DataGridTemplateColumn Header="Publicación App desarrollo" Width="40*" CellTemplate="{StaticResource devAppPathTemplate}"/>
+                <DataGridTemplateColumn Header="Publicación Front desarrollo" Width="40*" CellTemplate="{StaticResource devFrontPathTemplate}"/>
+                <DataGridTemplateColumn CellTemplate="{StaticResource actionTemplate}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
