@@ -57,7 +57,7 @@ namespace CM.Pages.Project
 
         private void btnAddUpdProject_Click_1(object sender, RoutedEventArgs e)
         {
-            project.Name = txtProjectName.Text;
+            /*project.Name = txtProjectName.Text;
             project.DevelopmentUrl = txtDevUrl.Text;
             project.DBConnectionString = txtDbConnString.Text;
             project.LocalAppPublishPath = txtLocalAppPublishPath.Text;
@@ -65,7 +65,7 @@ namespace CM.Pages.Project
             project.DevelopmentAppPublishPath = txtDevAppPublishPath.Text;
             project.DevelopmentFrontPublishPath = txtDevFrontPublishPath.Text;
             project.DevPublishPathUser = txtDevPathUser.Text;
-            project.DevPublishPathPassword = txtDevPathPassword.Text;
+            project.DevPublishPathPassword = txtDevPathPassword.Text;*/
 
             using (UnitOfWork unit = new UnitOfWork())
             using (new CursorOverrider())
